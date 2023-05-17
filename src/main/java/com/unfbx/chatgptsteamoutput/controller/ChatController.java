@@ -71,7 +71,7 @@ public class ChatController {
 
     @GetMapping("")
     public String index() {
-        return "1.html";
+        return "websocket.html";
     }
 
     @GetMapping("/websocket")

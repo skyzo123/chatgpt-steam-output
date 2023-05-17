@@ -39,7 +39,7 @@
             let messageElement = document.getElementById("message");
             let chat = document.getElementById("chat");
             let uid = window.localStorage.getItem("uid");
-            if (uid == null || uid == '' || uid == 'null') {
+            if (uid == null || uid === '' || uid === 'null') {
                 uid = uuid();
             }
             // 设置本地存储
@@ -60,12 +60,12 @@
                 };
                 //收到消息事件
                 socket.onmessage = function (msg) {
-                    if (msg.data == "[DONE]") {
+                    if (msg.data === "[DONE]") {
                         text = '';
                         return;
                     }
                     let json_data = JSON.parse(msg.data)
-                    if (json_data.content == null || json_data.content == 'null') {
+                    if (json_data.content == null || json_data.content === 'null') {
                         text = '';
                         return;
                     }
@@ -140,12 +140,11 @@
         <tr>
             <td>
                 <pre style="font-size: 15px">
-                    帮忙点个star吧<br/>
+
                     1、依赖ChatGPT开源Java SDK：<a rel="noopener noreferrer" href="https://github.com/Grt1228/chatgpt-java"
                                              target="_blank" style="font-size: 15px">https://github.com/Grt1228/chatgpt-java</a><br/>
                     2、本项目免费开源地址：<a rel="noopener noreferrer" href="https://github.com/Grt1228/chatgpt-steam-output"
                                    target="_blank" style="font-size: 15px">https://github.com/Grt1228/chatgpt-steam-output</a><br/>
-                    3、默认保持连接5分钟，默认上下文保持10个，5分钟无请求上下文会话销毁。
                 </pre>
             </td>
         </tr>
