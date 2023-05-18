@@ -9,7 +9,6 @@
     <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
     <script src="js/markdown.min.js"></script>
 
-
     <script>
         function setText(text, uuid_str) {
             let content = document.getElementById(uuid_str)
@@ -34,7 +33,6 @@
         function copyTextToClipboard(button) {
             // 获取输出框的父节点
             var article = button.parentNode;
-
             // 获取输出框的内容
             var text = article.textContent || article.innerText;
             text=text.replace(/复制内容$/, '')
@@ -42,24 +40,18 @@
             // 创建临时textarea元素并设置内容为要复制的文本
             var tempTextarea = document.createElement('textarea');
             tempTextarea.value = text;
-
             // 将临时textarea元素添加到DOM中
             document.body.appendChild(tempTextarea);
-
             // 选中临时textarea的文本
             tempTextarea.select();
             tempTextarea.setSelectionRange(0, 99999); // 兼容移动端
-
             // 将选中的文本复制到剪贴板
             document.execCommand('copy');
-
             // 删除临时textarea元素
             document.body.removeChild(tempTextarea);
-
             // 修改按钮文本
             button.textContent = '复制内容';
         }
-
         window.onload = function () {
             var socket
             let uuid_str = '';
@@ -153,7 +145,7 @@
 <!--</div>-->
 <div class="float-card">
     <div class="float-card-item">
-        <a href="http://0.0.0.0:63342/dont-call-me-oj-browser/web/index.html" target="_blank" rel="noopener noreferrer">Website</a>
+        <a href="http://localhost:63342/dont-call-me-oj-browser/web/index.html" target="_blank" rel="noopener noreferrer">Website</a>
     </div>
     <div class="float-card-item">
         <a href="https://gitee.com/skyzo_0/chatgpt-steam-output" target="_blank" rel="noopener noreferrer">Github</a>
@@ -175,11 +167,13 @@
         <tr>
             <td>
                 <pre style="font-size: 15px">
-
-                    1、依赖ChatGPT开源Java SDK：<a rel="noopener noreferrer" href="https://github.com/Grt1228/chatgpt-java"
+                1,依赖ChatGPT开源Java SDK：<a rel="noopener noreferrer" href="https://github.com/Grt1228/chatgpt-java"
+                                                           target="_blank" style="font-size: 15px">https://github.com/Grt1228/chatgpt-java</a><br/>
+                2,别叫我们组团队提供服务,让我们一起努力吧!
+<!--                    1、依赖ChatGPT开源Java SDK：<a rel="noopener noreferrer" href="https://github.com/Grt1228/chatgpt-java"
                                              target="_blank" style="font-size: 15px">https://github.com/Grt1228/chatgpt-java</a><br/>
                     2、本项目免费开源地址：<a rel="noopener noreferrer" href="https://github.com/Grt1228/chatgpt-steam-output"
-                                   target="_blank" style="font-size: 15px">https://github.com/Grt1228/chatgpt-steam-output</a><br/>
+                                   target="_blank" style="font-size: 15px">https://github.com/Grt1228/chatgpt-steam-output</a><br/>-->
                 </pre>
             </td>
         </tr>
