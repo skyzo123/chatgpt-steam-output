@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>战损版ChatGPT-WebSocket实现流式输出</title>
+    <title>ChatGPT-WebSocket实现流式输出</title>
     <link rel="icon" type="image/png" sizes="32x32" href="image/favicon-32x32.png">
     <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
     <script src="js/markdown.min.js"></script>
@@ -30,6 +30,35 @@
             return uuid;
         }
 
+        // 添加以下JavaScript代码用于复制内容
+        function copyTextToClipboard(button) {
+            // 获取输出框的父节点
+            var article = button.parentNode;
+
+            // 获取输出框的内容
+            var text = article.textContent || article.innerText;
+            text=text.replace(/复制内容$/, '')
+            //text = text.replace(/\n/g, "\\n");
+            // 创建临时textarea元素并设置内容为要复制的文本
+            var tempTextarea = document.createElement('textarea');
+            tempTextarea.value = text;
+
+            // 将临时textarea元素添加到DOM中
+            document.body.appendChild(tempTextarea);
+
+            // 选中临时textarea的文本
+            tempTextarea.select();
+            tempTextarea.setSelectionRange(0, 99999); // 兼容移动端
+
+            // 将选中的文本复制到剪贴板
+            document.execCommand('copy');
+
+            // 删除临时textarea元素
+            document.body.removeChild(tempTextarea);
+
+            // 修改按钮文本
+            button.textContent = '复制内容';
+        }
 
         window.onload = function () {
             var socket
@@ -53,7 +82,7 @@
                 //注意ws、wss使用不同的端口。我使用自签名的证书测试，
                 //无法使用wss，浏览器打开WebSocket时报错
                 //ws对应http、wss对应https。
-                socket = new WebSocket("ws://localhost:8000/websocket/"+uid);
+                socket = new WebSocket("ws://localhost:8080/websocket/"+uid);
                 //连接打开事件
                 socket.onopen = function () {
                     console.log("Socket 已打开");
@@ -97,7 +126,10 @@
                     chat.innerHTML += '<tr><td style="height: 50px;">' + messageElement.value + '</td></tr>';
                     messageElement.value = null
                     //新增答案框
-                    chat.innerHTML += '<tr><td><article id="' + uuid_str + '" class="markdown-body"></article></td></tr>';
+                    chat.innerHTML += '<tr><td><article id="' + uuid_str + '" class="markdown-body"></article>' +
+                        '<button onclick="copyTextToClipboard(this)">复制内容</button>' +
+                        '</td></tr>';
+
                 }
             };
 
@@ -108,6 +140,7 @@
             };
 
         };
+
     </script>
 </head>
 
@@ -120,13 +153,13 @@
 <!--</div>-->
 <div class="float-card">
     <div class="float-card-item">
-        <a href="https://www.unfbx.com" target="_blank" rel="noopener noreferrer">Website</a>
+        <a href="http://0.0.0.0:63342/dont-call-me-oj-browser/web/index.html" target="_blank" rel="noopener noreferrer">Website</a>
     </div>
     <div class="float-card-item">
-        <a href="https://github.com/Grt1228" target="_blank" rel="noopener noreferrer">Github</a>
+        <a href="https://gitee.com/skyzo_0/chatgpt-steam-output" target="_blank" rel="noopener noreferrer">Github</a>
     </div>
     <div class="float-card-item">
-        <a id="disconnectSSE" rel="noopener noreferrer">停止输出</a>
+        <a id="disconnectSSE" href="websocket.html" rel="noopener noreferrer">刷新</a>
     </div>
 </div>
 <div class="input-card">
@@ -134,8 +167,10 @@
         <input id="message" placeholder="输入你的问题，回车结束......" type="text">
     </div>
 </div>
+<div style="margin-left:auto; margin-right:auto">
 <div class="container">
-    <table border="1">
+
+    <table border="1" >
         <tbody id="chat">
         <tr>
             <td>
@@ -150,6 +185,7 @@
         </tr>
         </tbody>
     </table>
+    </div>
 </div>
 
 
@@ -230,5 +266,30 @@
         color: #594649;
         font-size: 13px;
     }
+    .container {
+        width: 980px;
+        border: 1px solid black;
+        display: flex;
+        flex-direction: column;
+        margin-left: 150px;
+        margin-top: 40px;
+        padding: 10px;
+    }
+
+    .container td {
+        position: relative;
+    }
+
+    /*.container td article {
+        display: inline-block;
+        margin-right: 5px;
+    }*/
+
+    .container td button {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+    }
+
 </style>
 </html>
